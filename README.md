@@ -4,7 +4,7 @@ I used Postman to send my API requests and to test the code.
 
 <h2>Services Used</h2>
 
-- <b>Postman</b>
+- <b>Spotify Developer</b>
 
 <h2>Environments Used </h2>
 

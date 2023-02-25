@@ -1,6 +1,5 @@
 # How to Use Spotify's API 
-In this REST API project using Node.js and Express. I demonstrate how to retrieve patients medical records, update patients personal information such as: address, phone number etc, add a new patient to the system and delete existing patient medical records from the database.
-I used Postman to send my API requests and to test the code.
+In this project I demonstrate how to gain access to Spotify API in order to write a program using Python which will show the artist name, their latest album, track list for their album, release date and album duration.
 
 <h2>Services Used</h2>
 

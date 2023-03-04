@@ -1,0 +1,68 @@
+import requests
+
+CLIENT_ID = ''
+CLIENT_SECRET = ''
+ACCESS_TOKEN_URL = 'https://accounts.spotify.com/api/token'
+
+# Step 1: Request access token from Spotify API
+
+
+def get_access_token(client_id, client_secret):
+    auth_response = requests.post(ACCESS_TOKEN_URL, {
+        'grant_type': 'client_credentials',
+        'client_id': client_id,
+        'client_secret': client_secret,
+    })
+    auth_response_data = auth_response.json()
+    access_token = auth_response_data['access_token']
+    return access_token
+
+
+access_token = get_access_token(CLIENT_ID, CLIENT_SECRET)
+
+# Step 2: Use access token to make API requests
+headers = {
+    'Authorization': f'Bearer {access_token}'
+}
+
+# Example API request to get artist info
+artist_id = '6Ip8FS7vWT1uKkJSweANQK'
+url = f'https://api.spotify.com/v1/artists/{artist_id}'
+response = requests.get(url, headers=headers)
+
+# Extract artist info from API response
+artist_data = response.json()
+artist_name = artist_data['name']
+
+# Example API request to get artist's latest album
+url = f'https://api.spotify.com/v1/artists/{artist_id}/albums?market=US&limit=1'
+response = requests.get(url, headers=headers)
+
+# Extract album info from API response
+album_data = response.json()['items'][0]
+album_name = album_data['name']
+release_date = album_data['release_date']
+album_id = album_data['id']
+
+# Example API request to get album's track list and duration
+url = f'https://api.spotify.com/v1/albums/{album_id}/tracks'
+response = requests.get(url, headers=headers)
+
+# Extract track info from API response
+track_data = response.json()['items']
+
+# Compute album duration in minutes and seconds
+album_duration_ms = sum(track['duration_ms'] for track in track_data)
+album_duration_mins = album_duration_ms // 60000
+album_duration_secs = (album_duration_ms % 60000) // 1000
+
+# Print artist, album, and track info to console
+print(f'Artist: {artist_name}')
+print(f'Album: {album_name} | Release Date: {release_date} | Duration: {album_duration_mins}:{album_duration_secs:02}')
+print('Track List:')
+for i, track in enumerate(track_data):
+    track_name = track['name']
+    track_duration_ms = track['duration_ms']
+    track_duration_mins = track_duration_ms // 60000
+    track_duration_secs = (track_duration_ms % 60000) // 1000
+    print(f'{i+1}. {track_name} | Duration: {track_duration_mins}:{track_duration_secs:02}')

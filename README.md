@@ -9,7 +9,7 @@ In this project I demonstrate how to gain access to Spotify API in order to writ
 
 - <b>Visual Studio Code</b>
 
-<h2>Website deployed to one of EC2 instances</h2>
+<h2>API request to get artist's latest album</h2>
 
 <img src="https://i.imgur.com/vbv1PWg.png" height="80%" width="80%" alt="Image 1"/>
 
